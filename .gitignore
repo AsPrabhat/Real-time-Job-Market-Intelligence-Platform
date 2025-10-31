@@ -1,0 +1,127 @@
+# CareerRadar - .gitignore
+
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+*.mo
+*.pot
+
+# ==========================================
+# Virtual Environments
+# ==========================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# ==========================================
+# Jupyter Notebook
+# ==========================================
+.ipynb_checkpoints
+*.ipynb
+
+# ==========================================
+# IDEs and Editors
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# Environment Variables
+# ==========================================
+.env
+.env.local
+.env.*.local
+
+# ==========================================
+# Docker
+# ==========================================
+docker-compose.override.yml
+
+# ==========================================
+# Spark & Delta Lake
+# ==========================================
+delta-data/
+spark-warehouse/
+metastore_db/
+derby.log
+spark-events/
+*.parquet
+*.checkpoint
+
+# ==========================================
+# Kafka
+# ==========================================
+kafka-data/
+zookeeper-data/
+
+# ==========================================
+# Logs
+# ==========================================
+*.log
+logs/
+
+# ==========================================
+# Generated Data
+# ==========================================
+sample_data/sample_jobs.json
+
+# ==========================================
+# OS Files
+# ==========================================
+Thumbs.db
+Desktop.ini
+
+# ==========================================
+# Temporary Files
+# ==========================================
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ==========================================
+# My Files
+# ==========================================
+resume.txt
+plan.md
+docs/
