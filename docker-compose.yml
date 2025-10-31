@@ -83,6 +83,30 @@ services:
         limits:
           memory: 3G
 
+  # Scraper - Loads sample data and publishes to Kafka
+  scraper:
+    build:
+      context: ./scraper
+      dockerfile: Dockerfile
+    container_name: careerradar-scraper
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BROKER: kafka:9092
+      KAFKA_TOPIC: job_postings
+      SAMPLE_DATA_PATH: /data/sample_jobs.json
+      BATCH_SIZE: 5
+      BATCH_DELAY: 10
+    volumes:
+      - ./sample_data:/data
+    networks:
+      - careerradar-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    restart: "no"
+
 # Named volumes for persistent data
 volumes:
   spark-logs:
