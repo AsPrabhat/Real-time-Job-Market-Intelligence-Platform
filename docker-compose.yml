@@ -107,6 +107,27 @@ services:
           memory: 256M
     restart: "no"
 
+  # Spark Processor - Consumes from Kafka, enriches data, writes to Delta Lake
+  processor:
+    build:
+      context: ./spark_processor
+      dockerfile: Dockerfile
+    container_name: careerradar-processor
+    depends_on:
+      - spark-master
+      - spark-worker
+      - kafka
+    environment:
+      SPARK_MASTER: spark://spark-master:7077
+    volumes:
+      - ./delta-data:/opt/spark/delta
+    networks:
+      - careerradar-network
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
 # Named volumes for persistent data
 volumes:
   spark-logs:
