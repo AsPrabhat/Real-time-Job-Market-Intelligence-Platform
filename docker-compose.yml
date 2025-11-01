@@ -128,6 +128,26 @@ services:
         limits:
           memory: 2G
 
+  # Dashboard - Real-time visualization of job market intelligence
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: careerradar-dashboard
+    depends_on:
+      - processor
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./delta-data:/opt/spark/delta
+    networks:
+      - careerradar-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+    restart: unless-stopped
+
 # Named volumes for persistent data
 volumes:
   spark-logs:
