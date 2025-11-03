@@ -120,9 +120,10 @@ temp/
 *.bak
 
 # ==========================================
-# My Files
+# Project Development Files
 # ==========================================
 resume.txt
 plan.md
-docs/
 verify_data.py
+docs/
+STUDENT_README.txt
