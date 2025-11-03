@@ -1,0 +1,37 @@
+{
+  "alerts": [
+    {
+      "name": "Senior AI/ML Engineer Opportunities",
+      "email": "your_email@gmail.com",
+      "keywords": ["Machine Learning", "AI", "Deep Learning", "NLP", "LLM", "RAG", "OpenAI"],
+      "locations": ["Bangalore", "Hyderabad", "Pune"],
+      "seniority_levels": ["Mid", "Senior"],
+      "min_skills_count": 5,
+      "enabled": true
+    },
+    {
+      "name": "Python Backend Developer Alerts",
+      "email": "your_email@gmail.com",
+      "keywords": ["Python", "FastAPI", "Django", "Flask", "Kafka", "PostgreSQL"],
+      "locations": ["Bangalore", "Mumbai", "Noida"],
+      "seniority_levels": ["Junior", "Mid"],
+      "min_skills_count": 3,
+      "enabled": true
+    },
+    {
+      "name": "Cloud & DevOps Positions",
+      "email": "your_email@gmail.com",
+      "keywords": ["AWS", "Azure", "Kubernetes", "Docker", "Terraform"],
+      "locations": ["Bangalore", "Pune", "Hyderabad"],
+      "seniority_levels": ["Mid", "Senior"],
+      "min_skills_count": 4,
+      "enabled": false
+    }
+  ],
+  "check_interval_minutes": 15,
+  "smtp_config": {
+    "server": "smtp.gmail.com",
+    "port": 587,
+    "use_tls": true
+  }
+}

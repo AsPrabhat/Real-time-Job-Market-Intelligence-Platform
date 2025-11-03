@@ -148,6 +148,28 @@ services:
           memory: 1G
     restart: unless-stopped
 
+  # Alerter - Personalized job notifications via email
+  alerter:
+    build:
+      context: ./alerter
+      dockerfile: Dockerfile
+    container_name: careerradar-alerter
+    depends_on:
+      - processor
+    environment:
+      EMAIL_ADDRESS: ${EMAIL_ADDRESS}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+    volumes:
+      - ./delta-data:/opt/spark/delta
+      - ./alerts.json:/config/alerts.json:ro
+    networks:
+      - careerradar-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    restart: unless-stopped
+
 # Named volumes for persistent data
 volumes:
   spark-logs:

@@ -6,16 +6,16 @@
 [![Delta Lake](https://img.shields.io/badge/Delta%20Lake-3.0-green.svg)](https://delta.io/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-blue.svg)](https://www.docker.com/)
 
-CareerRadar is a real-time data engineering platform designed to collect, process, and analyze job market trends. The system ingests job postings through a streaming pipeline, performs intelligent skill extraction and classification using Apache Spark, stores the enriched data in Delta Lake, and presents actionable insights through an interactive dashboard.
+A real-time data engineering project that analyzes job market trends using Apache Kafka, Spark, and Delta Lake. Built as part of my B.Tech final year project to understand modern big data technologies and streaming architectures.
 
-## Key Features
+## What It Does
 
-- **Real-time Data Pipeline**: Kafka-based streaming architecture that continuously ingests job posting data
-- **Intelligent Enrichment**: Custom Apache Spark jobs extract technical skills and classify experience levels from job descriptions
-- **Delta Lake Storage**: ACID-compliant storage layer that maintains historical job market data with versioning capabilities
-- **Interactive Dashboard**: Web-based analytics interface built with Plotly Dash, featuring dynamic filters and automated refresh
-- **Personalized Alerts**: Configurable email notification system that monitors for job opportunities matching specific criteria
-- **Containerized Deployment**: Docker Compose configuration that handles multi-service orchestration and resource management
+- **Streams job postings** through Apache Kafka
+- **Processes data in real-time** using Apache Spark to extract skills and classify experience levels
+- **Stores enriched data** in Delta Lake (ACID-compliant data lake)
+- **Visualizes insights** through an interactive Plotly Dash dashboard
+- **Sends email alerts** for matching job opportunities (optional)
+- **Runs entirely in Docker** - easy setup with docker-compose
 
 ## Architecture
 
@@ -46,59 +46,53 @@ CareerRadar is a real-time data engineering platform designed to collect, proces
 
 ## Dashboard Features
 
-The dashboard provides several analytical views of the job market data:
+- **Top Skills**: Most in-demand technical skills
+- **Experience Levels**: Distribution of internship, entry-level, mid, and senior roles
+- **Location Analysis**: Where jobs are concentrated
+- **Timeline**: Job posting trends over time
+- **Skill Co-occurrence**: Which skills often appear together
+- **Company Insights**: Top hiring companies
+- **Interactive Table**: Searchable job listings with all details
 
-- **Top 10 In-Demand Skills**: Bar chart displaying the most frequently requested technical skills
-- **Experience Level Distribution**: Pie chart breaking down opportunities by seniority (Internship, Entry-Level, Senior)
-- **Jobs by Location**: Geographic distribution across major Indian technology hubs
-- **Job Postings Timeline**: Time-series visualization showing posting trends
-- **Skill Co-occurrence Matrix**: Heatmap indicating which technical skills commonly appear together in job requirements
-- **Company Distribution**: Analysis of which companies are posting most frequently
-- **Interactive Data Table**: Searchable and filterable table view with pagination
-
-## Getting Started
+## Quick Start
 
 ### Prerequisites
-
-- Docker Desktop installed and running
-- Minimum 8GB RAM allocated to Docker
-- Windows, macOS, or Linux operating system
-- Gmail account (optional, required only for email alerts)
+- Docker Desktop (with at least 8GB RAM allocated)
+- Git
 
 ### Installation
 
-1. Clone the repository
+1. **Clone and navigate to the repository**
    ```bash
    git clone https://github.com/AsPrabhat/Real-time-Job-Market-Intelligence-Platform.git
    cd Real-time-Job-Market-Intelligence-Platform
    ```
 
-2. Configure environment variables (optional, for email alerts)
-   ```bash
-   cp .env.example .env
-   # Edit .env file with your Gmail credentials
-   ```
-
-3. Build and start all services
+2. **Start all services**
    ```bash
    docker-compose up --build
    ```
+   This will start Kafka, Spark, Delta Lake, Dashboard, and other services.
 
-4. Access the dashboard
-   - Dashboard: `http://localhost:8050`
-   - Spark UI: `http://localhost:8080`
-   - Kafka (internal): `kafka:9092`
+3. **Access the application**
+   - **Dashboard**: http://localhost:8050
+   - **Spark UI**: http://localhost:8080
 
-### Stopping the Services
+### Optional: Email Alerts
 
-To stop all running containers:
+To enable email alerts for job matches:
 ```bash
-docker-compose down
+cp .env.example .env
+# Edit .env with your Gmail credentials (use App Password)
 ```
 
-To remove all data and start fresh:
+Edit `alerts.json` to customize your alert preferences.
+
+### Stopping the Application
+
 ```bash
-docker-compose down -v
+docker-compose down        # Stop services
+docker-compose down -v     # Stop and remove all data
 ```
 
 ## Project Structure
@@ -129,84 +123,70 @@ CareerRadar/
 └── README.md                  # This file
 ```
 
-## Target Job Roles
+## How It Works
 
-The system focuses on tracking software engineering and data-related positions:
-- Software Developer / SDE
-- AI/ML Engineer
-- Data Engineer
-- Backend Developer
-- Full Stack Developer
-
-### Geographic Focus
-
-The platform currently targets opportunities in major Indian technology hubs:
-- Bangalore
-- Hyderabad
-- Mumbai
-- Pune
-- Delhi/Noida
-
-## Configuration
-
-### Skills Tracking
-
-The Spark processor identifies and extracts over 25 technical skills from job descriptions:
-- **Programming Languages**: Python, C++, Java, SQL
-- **Data Engineering Tools**: Apache Spark, Kafka, Delta Lake, PostgreSQL
-- **Cloud & AI Technologies**: Azure, OpenAI, RAG, Vector Databases, LLM, NLP
-- **Development Tools**: Docker, Git, GitHub, Node.js
-- **Specialized Areas**: Distributed Systems, Machine Learning, Generative AI
-
-### Alert Preferences
-
-Edit `alerts.json` to customize job alerts:
-```json
-{
-  "email": "your-email@gmail.com",
-  "keywords": ["Python", "Spark", "Azure"],
-  "locations": ["Bangalore", "Hyderabad"]
-}
 ```
+Sample Data → Kafka → Spark Processor → Delta Lake → Dashboard
+                                              ↓
+                                          Alerter
+```
+
+1. **Data Ingestion**: Sample job data is published to Kafka topic
+2. **Stream Processing**: Spark reads from Kafka, extracts skills, classifies seniority
+3. **Storage**: Enriched data written to Delta Lake (supports time travel!)
+4. **Analytics**: Dashboard queries Delta Lake and visualizes insights
+5. **Alerts**: Periodic checks for matching jobs and sends email notifications
 
 ## Sample Data
 
-This repository includes a generator that creates 50 realistic job postings from prominent Indian technology companies such as:
-- Tata Consultancy Services (TCS)
-- Infosys
-- Wipro
-- Amazon India
-- Microsoft India
-- Accenture
-- Capgemini
+Includes 50 realistic job postings from Indian tech companies:
+- TCS, Infosys, Wipro
+- Amazon India, Microsoft India
+- Accenture, Capgemini, and more
 
-## Future Enhancements
+**Locations**: Bangalore, Hyderabad, Mumbai, Pune, Delhi/Noida  
+**Roles**: Software Engineer, Data Engineer, ML Engineer, Backend Developer, Full Stack
 
-Planned improvements for future iterations:
-- Real RSS feed integration from job boards
-- Web scraping capabilities for additional data sources
-- Salary range visualization and analysis
-- Geographic heatmap for job distribution
-- Skills gap analysis based on user profile
-- Slack integration for alerts
-- Machine learning-based job recommendations
-- Extended historical trend analysis
+## Future Improvements
 
-## Contributing
+- [ ] Integrate real job board RSS feeds
+- [ ] Add web scraping for Indeed/LinkedIn
+- [ ] Salary range analysis
+- [ ] Machine learning-based recommendations
+- [ ] Slack integration for alerts
 
-Contributions are welcome. Please submit a pull request or open an issue to discuss proposed changes.
+## Troubleshooting
 
-<!-- ## 📝 License
+**Dashboard shows no data?**
+- Wait 1-2 minutes for data to flow through the pipeline
+- Check if all services are running: `docker-compose ps`
 
-This project is open source and available under the MIT License. -->
+**Services not starting?**
+- Ensure Docker has at least 8GB RAM allocated
+- Try: `docker-compose down -v` then `docker-compose up --build`
+
+**Port already in use?**
+- Stop conflicting services or change ports in docker-compose.yml
+
+## Learning Outcomes
+
+This project helped me learn:
+- ✅ Real-time data streaming with Apache Kafka
+- ✅ Distributed processing with Apache Spark
+- ✅ ACID transactions with Delta Lake
+- ✅ Building interactive dashboards with Plotly Dash
+- ✅ Docker containerization and orchestration
+- ✅ Data engineering best practices
 
 ## Author
 
-**Prabhat Vishal Pensalwar**
+**Prabhat Vishal Pensalwar**  
+B.Tech Student | Data Engineering Enthusiast
+
 - GitHub: [@AsPrabhat](https://github.com/AsPrabhat)
+- LinkedIn: [Prabhat Pensalwar](https://www.linkedin.com/in/prabhat-pensalwar-2ab7a5330/)
 - Email: prabhatworkspace@gmail.com
-- LinkedIn: [Connect with me](https://www.linkedin.com/in/prabhat-pensalwar-2ab7a5330/)
 
 ---
 
-If you find this project useful, please consider starring the repository.
+⭐ If you found this project helpful, consider giving it a star!
